@@ -8,3 +8,5 @@ An open source census of the growing [Hack Club](https://hackclub.com) community
 
 1. What is your name?
 2. What is your Slack ID?
+3. What is your favorite programming language?
+4. What is your favorite IDE?
