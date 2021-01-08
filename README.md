@@ -18,5 +18,5 @@ An open source census of the growing [Hack Club](https://hackclub.com) community
 10. What new tech do you want to learn in 2021?
 11. What tech are you proud of having learned in 2020?
 12. What operating system do you use?
-13. How often do you post scrapbooks?
+13. How often do you share on your Scrapbook?
 14. Do you generally feel like Hack Club is a safe place for you?
