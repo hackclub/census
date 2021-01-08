@@ -13,3 +13,5 @@ An open source census of the growing [Hack Club](https://hackclub.com) community
 5. How did you find Hack Club?
 6. What is your favorite programming language?
 7. What is your favorite editor/IDE?
+8. What was the first programming language you learned?
+9. Have you contributed to an open source project before?
