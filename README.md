@@ -15,3 +15,8 @@ An open source census of the growing [Hack Club](https://hackclub.com) community
 7. What is your favorite editor/IDE?
 8. What was the first programming language you learned?
 9. Have you contributed to an open source project before?
+10. What new tech do you want to learn in 2021?
+11. What tech are you proud of having learned in 2020?
+12. What operating system do you use?
+13. How often do you post scrapbooks?
+14. Do you generally feel like Hack Club is a safe place for you?
