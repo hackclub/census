@@ -1,0 +1,44 @@
+[
+    {
+        "question": "What is your name?"
+    },
+    {
+        "question": "What is your Slack ID?"
+    },
+    {
+        "question": "What are your preferred pronouns?"
+    },
+    {
+        "question": "Which general area are you from?"
+    },
+    {
+        "question": "How did you find Hack Club?"
+    },
+    {
+        "question": "What is your favorite programming language?"
+    },
+    {
+        "question": "What is your favorite editor/IDE?"
+    },
+    {
+        "question": "What was the first programming language you learned?"
+    },
+    {
+        "question": "Have you contributed to an open source project before?"
+    },
+    {
+        "question": "What new tech do you want to learn in 2021?"
+    },
+    {
+        "question": "What tech are you proud of having learned in 2020?"
+    },
+    {
+        "question": "What operating system do you use?"
+    },
+    {
+        "question": "How often do you share on your Scrapbook?"
+    },
+    {
+        "question": "Do you generally feel like Hack Club is a safe place for you?"
+    }
+]
