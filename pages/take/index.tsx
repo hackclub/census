@@ -7,7 +7,6 @@ import { Heading, Link } from 'theme-ui'
 import { GetStaticProps } from 'next'
 import { Question } from '../../interfaces'
 import defaultQuestions from '../../default_questions.json'
-import disabledProps from '../../components/DisabledLink'
 
 type Props = {
   questions: Question[]
@@ -23,11 +22,7 @@ export default function TakePage({ questions }: Props) {
       <ol>
         {questions.map((question, i) => <li>
           <NextLink href={`/take/${i + 1}`} passHref>
-            <Link
-              title={question.unskippable ? "This question can only be answered in sequence." : undefined}
-              {...(question.unskippable ? disabledProps : {})}>
-              {question.question}
-            </Link>
+            <Link>{question.question}</Link>
           </NextLink>
         </li>)}
       </ol>
