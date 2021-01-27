@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 import NextLink from 'next/link'
 import { GetStaticPaths, GetStaticProps } from "next"
 import { useEffect, useState } from "react"
@@ -24,7 +26,8 @@ export default function TakePageID({ question }: Props) {
     }
 
     return <Layout title={`Hack Club Census | Question ${question.number}`}>
-        <main>
+        {/* @ts-ignore */}
+        <main sx={{ minHeight: "50vh" }}>
             <NextLink href="/take" passHref>
                 <Link sx={{ marginTop: 3 }}>← Back to question home</Link>
             </NextLink>
@@ -37,12 +40,12 @@ export default function TakePageID({ question }: Props) {
                 {question.number - 1 > 0 ?
                     <NextLink href={`/take/${question.number - 1}`} passHref>
                         <Link>← Previous</Link>
-                    </NextLink> : <></>}
+                    </NextLink> : <span></span>}
 
                 {question.number + 1 < defaultQuestions.length ?
                     <NextLink href={`/take/${question.number + 1}`} passHref>
                         <Link>Next →</Link>
-                    </NextLink> : <></>}
+                    </NextLink> : <span></span>}
             </Flex>
         </footer>
     </Layout>
