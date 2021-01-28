@@ -3,8 +3,8 @@ import Layout from '../components/Layout'
 
 import { Button, Heading, Link, Text } from 'theme-ui'
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
+export default function IndexPage() {
+  return <Layout title="Home | Next.js + TypeScript Example">
     <main>
       <Heading as="h1" variant="title" sx={{ paddingTop: 4 }}>Hack Club Census</Heading>
       <Text as="p" variant="lead">
@@ -16,6 +16,4 @@ const IndexPage = () => (
       </NextLink>
     </main>
   </Layout>
-)
-
-export default IndexPage
+}

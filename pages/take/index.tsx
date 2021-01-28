@@ -20,7 +20,7 @@ export default function TakePage({ questions }: Props) {
       </NextLink>
       <Heading as="h1" variant="title" sx={{ paddingTop: 4 }}>Take the Hack Club Census</Heading>
       <ol>
-        {questions.map((question, i) => <li>
+        {questions.map((question, i) => <li key={i}>
           <NextLink href={`/take/${i + 1}`} passHref>
             <Link>{question.question}</Link>
           </NextLink>
