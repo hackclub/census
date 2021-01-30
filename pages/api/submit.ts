@@ -1,9 +1,9 @@
 import Airtable from "airtable"
 import { NextApiRequest, NextApiResponse } from "next"
 import { airtable_api_key, airtable_base } from "../../lib/secrets_wrapper"
-import defaultQuestions from "../../default_questions.json"
 import Cookies from "cookies"
 import { WebClient } from "@slack/web-api"
+import { uiQuestions } from "../../lib/questions"
 
 const client = new WebClient()
 
@@ -14,8 +14,8 @@ function adaptToAnswers(value: any): [boolean, string[]] {
     if (value.nojs === "yes") {
         /* Adapt values */
         const newValues = []
-        for (const i in defaultQuestions) {
-            const formKey = `answer_${Number(i) + 1}`
+        for (const q of uiQuestions) {
+            const formKey = `answer_${q.number}`
             newValues.push(value[formKey])
         }
         return [true, newValues]

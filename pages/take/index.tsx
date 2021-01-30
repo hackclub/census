@@ -4,15 +4,9 @@ import NextLink from "next/link"
 import Layout from "../../components/Layout"
 
 import { Heading, Link } from "theme-ui"
-import { GetStaticProps } from "next"
-import { Question } from "../../lib/question"
-import defaultQuestions from "../../default_questions.json"
+import { uiQuestions } from "../../lib/questions"
 
-type Props = {
-    questions: Question[]
-}
-
-export default function TakePage({ questions }: Props) {
+export default function TakePage(_: {}) {
     return (
         <Layout slackUsername={null}>
             <main>
@@ -30,10 +24,10 @@ export default function TakePage({ questions }: Props) {
                     Take the Hack Club Census
                 </Heading>
                 <ol>
-                    {questions.map((question, i) => (
-                        <li key={i}>
-                            <NextLink href={`/take/${i + 1}`} passHref>
-                                <Link>{question.question}</Link>
+                    {uiQuestions.map((q) => (
+                        <li key={q.number}>
+                            <NextLink href={`/take/${q.number}`} passHref>
+                                <Link>{q.question}</Link>
                             </NextLink>
                         </li>
                     ))}
@@ -44,9 +38,4 @@ export default function TakePage({ questions }: Props) {
             </main>
         </Layout>
     )
-}
-
-export const getStaticProps: GetStaticProps = async function () {
-    const questions: Question[] = defaultQuestions
-    return { props: { questions } }
 }

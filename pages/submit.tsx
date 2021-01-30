@@ -4,14 +4,8 @@ import NextLink from "next/link"
 import Layout from "../components/Layout"
 
 import { Heading, Link, Text } from "theme-ui"
-import { GetStaticProps } from "next"
-import { Question } from "../lib/question"
-import defaultQuestions from "../default_questions.json"
+import { uiQuestions } from "../lib/questions"
 import { useEffect, useState } from "react"
-
-type Props = {
-    questions: Question[]
-}
 
 function getAnswer(num: number): string | null {
     if (typeof localStorage === "undefined") return null
@@ -20,9 +14,9 @@ function getAnswer(num: number): string | null {
     return value
 }
 
-export default function TakePage({ questions }: Props) {
+export default function TakePage(_: {}) {
     const [questionAnswers, setAnswers] = useState<(string | null)[]>(
-        questions.map((_) => null)
+        uiQuestions.map((_) => null)
     )
 
     let [message, setMessage] = useState("")
@@ -30,7 +24,7 @@ export default function TakePage({ questions }: Props) {
     async function onSubmit() {
         const res = await fetch("/api/submit", {
             body: JSON.stringify({
-                answers: questions.map((_, i) => getAnswer(i + 1)),
+                answers: uiQuestions.map((q) => getAnswer(q.number)),
             }),
             method: "POST",
             headers: {
@@ -42,7 +36,7 @@ export default function TakePage({ questions }: Props) {
     }
 
     useEffect(() => {
-        const newAnswers = questions.map((_, i) => getAnswer(i + 1))
+        const newAnswers = uiQuestions.map((q) => getAnswer(q.number))
         setAnswers(newAnswers)
     }, [])
 
@@ -56,10 +50,10 @@ export default function TakePage({ questions }: Props) {
                     Ready to submit?
                 </Heading>
                 <ol>
-                    {questions.map((question, i) => (
-                        <li key={i}>
-                            <NextLink href={`/take/${i + 1}`} passHref>
-                                <Link>{question.question}</Link>
+                    {uiQuestions.map((q, i) => (
+                        <li key={q.number}>
+                            <NextLink href={`/take/${q.number}`} passHref>
+                                <Link>{q.question}</Link>
                             </NextLink>
                             <Text as="p">
                                 {questionAnswers[i] ?? (
@@ -80,9 +74,4 @@ export default function TakePage({ questions }: Props) {
             </main>
         </Layout>
     )
-}
-
-export const getStaticProps: GetStaticProps = async function () {
-    const questions: Question[] = defaultQuestions
-    return { props: { questions } }
 }

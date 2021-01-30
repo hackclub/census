@@ -5,8 +5,7 @@ import { GetStaticPaths, GetStaticProps } from "next"
 import { useEffect, useState } from "react"
 import { Flex, Heading, Text, Link, Textarea } from "theme-ui"
 import Layout from "../../components/Layout"
-import defaultQuestions from "../../default_questions.json"
-import { UIQuestion } from "../../lib/question"
+import { UIQuestion, uiQuestions } from "../../lib/questions"
 
 type Props = {
     question: UIQuestion
@@ -81,7 +80,7 @@ export default function TakePageID({ question }: Props) {
                         <span></span>
                     )}
 
-                    {question.number + 1 < defaultQuestions.length ? (
+                    {question.number + 1 < uiQuestions.length ? (
                         <NextLink
                             href={`/take/${question.number + 1}`}
                             passHref
@@ -99,8 +98,8 @@ export default function TakePageID({ question }: Props) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     // Get the paths we want to pre-render based on users
-    const paths = defaultQuestions.map((_, i) => ({
-        params: { id: `${i + 1}` },
+    const paths = uiQuestions.map((q) => ({
+        params: { id: `${q.number}` },
     }))
 
     // We'll pre-render only these paths at build time.
@@ -114,14 +113,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const id = params?.id
-        const question = defaultQuestions.find((_, i) => i + 1 === Number(id))
-        // By returning {props: item }, the StaticPropsDetail component
-        // will receive `item` as a prop at build time
-        const ui_question = {
-            ...question,
-            number: Number(id),
-        }
-        return { props: { question: ui_question } }
+        const question = uiQuestions.find((q) => q.number === Number(id))
+        return { props: { question } }
     } catch (err) {
         return { props: { errors: err.message } }
     }

@@ -3,20 +3,10 @@ import { Button, Input, jsx, Label } from "theme-ui"
 import Layout from "../components/Layout"
 
 import { Heading, Link } from "theme-ui"
-import { GetServerSideProps } from "next"
-import { Question } from "../lib/question"
-import defaultQuestions from "../default_questions.json"
-import { LoginProps } from "../lib/state"
-import Cookies from "cookies"
+import { uiQuestions } from "../lib/questions"
+import { loginGetServerSideProps, LoginProps } from "../lib/state"
 
-type Props = {
-    questions: Question[]
-}
-
-export default function TakePage({
-    questions,
-    slackUsername,
-}: Props & LoginProps) {
+export default function TakePage({ slackUsername }: LoginProps) {
     return (
         <Layout slackUsername={slackUsername}>
             <main>
@@ -28,20 +18,18 @@ export default function TakePage({
                 </Heading>
                 <form action="/api/submit" method="POST">
                     <input type="hidden" name="nojs" value="yes" />
-                    {questions.map((q, i) => (
+                    {uiQuestions.map((q) => (
                         <>
                             <Label
-                                id={`answer${i + 1}`}
+                                id={`answer${q.number}`}
                                 sx={{ ":target": { fontWeight: "bold" } }}
                             >
                                 {q.question}
                                 <br />
                                 <Input
                                     type="text"
-                                    name={`answer_${i + 1}`}
-                                    placeholder={`Type your answer to question ${
-                                        i + 1
-                                    } here`}
+                                    name={`answer_${q.number}`}
+                                    placeholder={`Type your answer to question ${q.number} here`}
                                 />
                             </Label>
                             <br />
@@ -59,12 +47,4 @@ export default function TakePage({
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const cookies = new Cookies(context.req, context.res)
-    return {
-        props: {
-            slackUsername: cookies.get("slack-username") ?? null,
-            questions: defaultQuestions,
-        },
-    }
-}
+export const getServerSideProps = loginGetServerSideProps
