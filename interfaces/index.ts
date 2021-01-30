@@ -5,15 +5,15 @@
 // import { User } from 'path/to/interfaces';
 
 export type User = {
-  id: number
-  name: string
+    id: number
+    name: string
 }
 
 export interface Question {
-  question: string;
-  unskippable?: boolean;
+    question: string
+    unskippable?: boolean
 }
 
 export interface UIQuestion extends Question {
-  number: number;
+    number: number
 }

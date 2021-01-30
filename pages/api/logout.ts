@@ -1,5 +1,5 @@
-import Cookies from "cookies";
-import { NextApiRequest, NextApiResponse } from "next";
+import Cookies from "cookies"
+import { NextApiRequest, NextApiResponse } from "next"
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const cookies = new Cookies(req, res)

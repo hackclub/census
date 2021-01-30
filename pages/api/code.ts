@@ -1,21 +1,24 @@
-import { WebClient } from "@slack/web-api";
-import Cookies from "cookies";
-import { NextApiRequest, NextApiResponse } from "next";
-import { slack_client_id, slack_client_secret } from "../../lib/secrets_wrapper";
-import { validateAndDecodeState } from "../../lib/state";
+import { WebClient } from "@slack/web-api"
+import Cookies from "cookies"
+import { NextApiRequest, NextApiResponse } from "next"
+import { slack_client_id, slack_client_secret } from "../../lib/secrets_wrapper"
+import { validateAndDecodeState } from "../../lib/state"
 
 const client = new WebClient()
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
     if (req.query.error) {
-        res.redirect("/");
+        res.redirect("/")
     }
 
-    const { state, code } = req.query as { state: string; code: string; }
+    const { state, code } = req.query as { state: string; code: string }
     const [isValid, next] = validateAndDecodeState(state)
     if (!isValid) {
-        res.status(400);
-        return;
+        res.status(400)
+        return
     }
 
     const resp = await client.oauth.v2.access({
@@ -26,13 +29,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
 
     if (!resp.ok) {
-        res.status(500);
-        return;
+        res.status(500)
+        return
     }
 
-    const data = resp as any as {
+    const data = (resp as any) as {
         authed_user: {
-            access_token: string;
+            access_token: string
         }
     }
     const userToken = data.authed_user.access_token
@@ -43,23 +46,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         httpOnly: true,
         maxAge: 600000, // 10 minutes
         sameSite: true,
-        path: "/"
+        path: "/",
     })
 
     // Cosmetic detail
     const userResp = await client.users.identity({ token: userToken })
     if (!userResp.ok) {
-        res.status(500);
-        return;
+        res.status(500)
+        return
     }
-    const userName = (userResp as any as { user: { name: string; } }).user.name
+    const userName = ((userResp as any) as { user: { name: string } }).user.name
 
     // available to JS for cosmetics
     cookies.set("slack-username", userName, {
         httpOnly: false,
         maxAge: 600000,
         sameSite: true,
-        path: "/"
+        path: "/",
     })
 
     res.redirect(next)

@@ -1,20 +1,22 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import NextLink from 'next/link'
+import { jsx } from "theme-ui"
+import NextLink from "next/link"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { useEffect, useState } from "react"
 import { Flex, Heading, Text, Link, Textarea } from "theme-ui"
 import Layout from "../../components/Layout"
-import defaultQuestions from '../../default_questions.json'
+import defaultQuestions from "../../default_questions.json"
 import { UIQuestion } from "../../interfaces"
 
 type Props = {
-    question: UIQuestion;
+    question: UIQuestion
 }
 
 export default function TakePageID({ question }: Props) {
-    const [answer, setAnswer] = useState('')
-    const [lastQuestionNumber, setLastQuestionNumber] = useState<number | null>(null)
+    const [answer, setAnswer] = useState("")
+    const [lastQuestionNumber, setLastQuestionNumber] = useState<number | null>(
+        null
+    )
 
     useEffect(() => {
         const key = `questions/${lastQuestionNumber}/answer`
@@ -23,43 +25,76 @@ export default function TakePageID({ question }: Props) {
         } else {
             localStorage.removeItem(key)
         }
-    }, [answer, lastQuestionNumber]);
+    }, [answer, lastQuestionNumber])
 
     if (question.number !== lastQuestionNumber) {
-        setAnswer(typeof window !== "undefined" ? localStorage.getItem(`questions/${question.number}/answer`) ?? "" : "");
-        setLastQuestionNumber(question.number);
+        setAnswer(
+            typeof window !== "undefined"
+                ? localStorage.getItem(`questions/${question.number}/answer`) ??
+                      ""
+                : ""
+        )
+        setLastQuestionNumber(question.number)
     }
 
     const nojsUrl = `/take_nojs#answer${question.number}`
 
-    return <Layout slackUsername={null} title={`Hack Club Census | Question ${question.number}`}>
-        {/* @ts-ignore */}
-        <main sx={{ minHeight: "50vh" }}>
-            <noscript>
-                <Link href={nojsUrl}>This page requires JavaScript. Click here to go to a no-JS version!</Link>
-                <br />
-            </noscript>
-            <NextLink href="/take" passHref>
-                <Link sx={{ marginTop: 3 }}>← Back to question home</Link>
-            </NextLink>
-            <Heading as="h1" variant="title" sx={{ paddingTop: 4 }}>{question.question}</Heading>
-            <Textarea spellCheck="false" value={answer} placeholder="Type your answer here" sx={{ fontSize: 4 }} onChange={(ev) => setAnswer(ev.target.value)} />
-            <Text as="p">Current value: {answer}</Text>
-        </main>
-        <footer>
-            <Flex sx={{ justifyContent: "space-between" }}>
-                {question.number - 1 > 0 ?
-                    <NextLink href={`/take/${question.number - 1}`} passHref>
-                        <Link>← Previous</Link>
-                    </NextLink> : <span></span>}
+    return (
+        <Layout
+            slackUsername={null}
+            title={`Hack Club Census | Question ${question.number}`}
+        >
+            {/* @ts-ignore */}
+            <main sx={{ minHeight: "50vh" }}>
+                <noscript>
+                    <Link href={nojsUrl}>
+                        This page requires JavaScript. Click here to go to a
+                        no-JS version!
+                    </Link>
+                    <br />
+                </noscript>
+                <NextLink href="/take" passHref>
+                    <Link sx={{ marginTop: 3 }}>← Back to question home</Link>
+                </NextLink>
+                <Heading as="h1" variant="title" sx={{ paddingTop: 4 }}>
+                    {question.question}
+                </Heading>
+                <Textarea
+                    spellCheck="false"
+                    value={answer}
+                    placeholder="Type your answer here"
+                    sx={{ fontSize: 4 }}
+                    onChange={(ev) => setAnswer(ev.target.value)}
+                />
+                <Text as="p">Current value: {answer}</Text>
+            </main>
+            <footer>
+                <Flex sx={{ justifyContent: "space-between" }}>
+                    {question.number - 1 > 0 ? (
+                        <NextLink
+                            href={`/take/${question.number - 1}`}
+                            passHref
+                        >
+                            <Link>← Previous</Link>
+                        </NextLink>
+                    ) : (
+                        <span></span>
+                    )}
 
-                {question.number + 1 < defaultQuestions.length ?
-                    <NextLink href={`/take/${question.number + 1}`} passHref>
-                        <Link>Next →</Link>
-                    </NextLink> : <span></span>}
-            </Flex>
-        </footer>
-    </Layout>
+                    {question.number + 1 < defaultQuestions.length ? (
+                        <NextLink
+                            href={`/take/${question.number + 1}`}
+                            passHref
+                        >
+                            <Link>Next →</Link>
+                        </NextLink>
+                    ) : (
+                        <span></span>
+                    )}
+                </Flex>
+            </footer>
+        </Layout>
+    )
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -85,7 +120,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const ui_question = {
             ...question,
             number: Number(id),
-        };
+        }
         return { props: { question: ui_question } }
     } catch (err) {
         return { props: { errors: err.message } }

@@ -1,9 +1,9 @@
-import Airtable from "airtable";
-import { NextApiRequest, NextApiResponse } from "next";
+import Airtable from "airtable"
+import { NextApiRequest, NextApiResponse } from "next"
 import { airtable_api_key, airtable_base } from "../../lib/secrets_wrapper"
 import defaultQuestions from "../../default_questions.json"
-import Cookies from "cookies";
-import { WebClient } from "@slack/web-api";
+import Cookies from "cookies"
+import { WebClient } from "@slack/web-api"
 
 const client = new WebClient()
 
@@ -25,26 +25,29 @@ function adaptToAnswers(value: any): [boolean, string[]] {
     }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
     if (req.method !== "POST") {
-        res.status(400);
-        return;
+        res.status(400)
+        return
     }
 
     const cookies = new Cookies(req, res)
     const slack_token = cookies.get("slack-auth-token")
     if (!slack_token) {
-        res.status(400);
-        return;
+        res.status(400)
+        return
     }
 
     // Fetch user ID
-    const userResp = await client.users.identity({ token: slack_token });
+    const userResp = await client.users.identity({ token: slack_token })
     if (!userResp.ok) {
-        res.status(500);
-        return;
+        res.status(500)
+        return
     }
-    const userId = (userResp as any as { user: { id: string; } }).user.id
+    const userId = ((userResp as any) as { user: { id: string } }).user.id
 
     const [nojs, answers] = adaptToAnswers(req.body)
     const now = Date.now()
@@ -60,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.redirect(`/success_nojs?recordId=${record.id}`)
     } else {
         res.json({
-            recordId: record.id
+            recordId: record.id,
         })
     }
 }

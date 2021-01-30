@@ -5,14 +5,21 @@ import { LoginProps } from "../lib/state"
 import Cookies from "cookies"
 
 type Props = {
-    recordId: string;
+    recordId: string
 }
 
-export default function SubmitPageNoJS({ recordId, slackUsername }: Props & LoginProps) {
-    return <Layout slackUsername={slackUsername}>
-        <Heading as="h1" variant="title">Success!</Heading>
-        <Text as="p">Success submitting! Record ID: {recordId}</Text>
-    </Layout>
+export default function SubmitPageNoJS({
+    recordId,
+    slackUsername,
+}: Props & LoginProps) {
+    return (
+        <Layout slackUsername={slackUsername}>
+            <Heading as="h1" variant="title">
+                Success!
+            </Heading>
+            <Text as="p">Success submitting! Record ID: {recordId}</Text>
+        </Layout>
+    )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -20,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             recordId: context.query.recordId as string,
-            slackUsername: cookies.get("slack-username") ?? null
-        }
+            slackUsername: cookies.get("slack-username") ?? null,
+        },
     }
 }
