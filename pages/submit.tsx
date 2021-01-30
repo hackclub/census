@@ -5,7 +5,7 @@ import Layout from "../components/Layout"
 
 import { Heading, Link, Text } from "theme-ui"
 import { GetStaticProps } from "next"
-import { Question } from "../interfaces"
+import { Question } from "../lib/question"
 import defaultQuestions from "../default_questions.json"
 import { useEffect, useState } from "react"
 

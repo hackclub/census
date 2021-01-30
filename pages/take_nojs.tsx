@@ -4,7 +4,7 @@ import Layout from "../components/Layout"
 
 import { Heading, Link } from "theme-ui"
 import { GetServerSideProps } from "next"
-import { Question } from "../interfaces"
+import { Question } from "../lib/question"
 import defaultQuestions from "../default_questions.json"
 import { LoginProps } from "../lib/state"
 import Cookies from "cookies"

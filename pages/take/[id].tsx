@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Flex, Heading, Text, Link, Textarea } from "theme-ui"
 import Layout from "../../components/Layout"
 import defaultQuestions from "../../default_questions.json"
-import { UIQuestion } from "../../interfaces"
+import { UIQuestion } from "../../lib/question"
 
 type Props = {
     question: UIQuestion
