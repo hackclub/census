@@ -7,7 +7,7 @@ import { Heading, Link, Text } from 'theme-ui'
 import { GetStaticProps } from 'next'
 import { Question } from '../interfaces'
 import defaultQuestions from '../default_questions.json'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
     questions: Question[]
@@ -16,11 +16,13 @@ type Props = {
 function getAnswer(num: number): string | null {
     if (typeof localStorage === "undefined") return null
     const value = localStorage.getItem(`questions/${num}/answer`)
-    if (value && value.length == 0) return null
+    if (value && value.trim().length <= 0) return null
     return value
 }
 
 export default function TakePage({ questions }: Props) {
+    const [questionAnswers, setAnswers] = useState<(string | null)[]>(questions.map((_) => null))
+
     let [message, setMessage] = useState("")
 
     async function onSubmit() {
@@ -37,7 +39,12 @@ export default function TakePage({ questions }: Props) {
         setMessage(`Success! Record ID = ${res2.recordId}`)
     }
 
-    return <Layout>
+    useEffect(() => {
+        const newAnswers = questions.map((_, i) => getAnswer(i + 1))
+        setAnswers(newAnswers)
+    }, [])
+
+    return <Layout slackUsername={null}>
         <main>
             <NextLink href="/" passHref>
                 <Link sx={{ marginTop: 3 }}>← Back to home</Link>
@@ -49,7 +56,7 @@ export default function TakePage({ questions }: Props) {
                         <Link>{question.question}</Link>
                     </NextLink>
                     <Text as="p">
-                        {getAnswer(i + 1) ?? <strong>Not answered</strong>}
+                        {questionAnswers[i] ?? <strong>Not answered</strong>}
                     </Text>
                 </li>)}
             </ol>

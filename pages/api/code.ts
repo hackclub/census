@@ -2,13 +2,18 @@ import { WebClient } from "@slack/web-api";
 import Cookies from "cookies";
 import { NextApiRequest, NextApiResponse } from "next";
 import { slack_client_id, slack_client_secret } from "../../lib/secrets_wrapper";
-import { generateState } from "../../lib/state";
+import { validateAndDecodeState } from "../../lib/state";
 
 const client = new WebClient()
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.query.error) {
+        res.redirect("/");
+    }
+
     const { state, code } = req.query as { state: string; code: string; }
-    if (state != generateState()) {
+    const [isValid, next] = validateAndDecodeState(state)
+    if (!isValid) {
         res.status(400);
         return;
     }
@@ -37,7 +42,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     cookies.set("slack-auth-token", userToken, {
         httpOnly: true,
         maxAge: 600000, // 10 minutes
-        sameSite: true
+        sameSite: true,
+        path: "/"
     })
 
     // Cosmetic detail
@@ -52,8 +58,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     cookies.set("slack-username", userName, {
         httpOnly: false,
         maxAge: 600000,
-        sameSite: true
+        sameSite: true,
+        path: "/"
     })
 
-    res.redirect("/")
+    res.redirect(next)
 }

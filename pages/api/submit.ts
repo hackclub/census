@@ -55,9 +55,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         answers: JSON.stringify(answers),
     })
 
-    // If nojs redirect to special page
+    // If nojs, show the page!
     if (nojs) {
-        res.redirect(`/success?recordId=${encodeURIComponent(record.id)}`)
+        res.redirect(`/success_nojs?recordId=${record.id}`)
     } else {
         res.json({
             recordId: record.id

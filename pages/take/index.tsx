@@ -13,8 +13,12 @@ type Props = {
 }
 
 export default function TakePage({ questions }: Props) {
-  return <Layout>
+  return <Layout slackUsername={null}>
     <main>
+      <noscript>
+        <Link href="/take_nojs">This page requires JavaScript. Click here to go to a no-JS version!</Link>
+        <br />
+      </noscript>
       <NextLink href="/" passHref>
         <Link sx={{ marginTop: 3 }}>← Back to home</Link>
       </NextLink>
@@ -26,6 +30,9 @@ export default function TakePage({ questions }: Props) {
           </NextLink>
         </li>)}
       </ol>
+      <NextLink href="/submit" passHref>
+        <Link as="a">Submit →</Link>
+      </NextLink>
     </main>
   </Layout>
 }

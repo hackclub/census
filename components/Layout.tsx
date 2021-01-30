@@ -7,11 +7,13 @@ import NextLink from 'next/link'
 
 import { Container, Text } from 'theme-ui'
 import Flag from './Flag'
+import { useRouter } from 'next/router'
 
 type Props = {
   header?: ReactNode
   children?: ReactNode
   title?: string
+  slackUsername: string | null
 }
 
 function parseCookies(str: string): { [key: string]: string; } {
@@ -23,14 +25,15 @@ function parseCookies(str: string): { [key: string]: string; } {
 }
 
 
-export default function Layout({ header, children, title = 'This is the default title' }: Props) {
+export default function Layout({ header, children, title = 'This is the default title', slackUsername }: Props) {
   const [showCensus, setShowCensus] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     if (!["/", ""].includes(location.pathname)) setShowCensus(true)
-  });
+  }, [router]);
 
-  const [username, setUsername] = useState<string | null>(null)
+  let [username, setUsername] = useState<string | null>(slackUsername)
 
   useEffect(() => {
     const cookies = parseCookies(document.cookie);
@@ -59,14 +62,17 @@ export default function Layout({ header, children, title = 'This is the default 
           <Text as="p" variant="subheadline" sx={{ marginLeft: "auto", marginTop: "auto", marginBottom: "auto" }}>
             Signed in as {username}
           </Text>
-          <NextLink href="/api/logout" passHref>
-            <Button as="a" variant="outline" sx={{ marginLeft: 3 }}>Log out</Button>
-          </NextLink>
+          {/* @ts-ignore */}
+          <Button as="a" variant="outline" sx={{ marginLeft: 3 }} href={`/api/logout?next=${encodeURIComponent(router.asPath)}`}>
+            Log out
+          </Button>
         </> :
-        <NextLink href="/api/authorize" passHref>
-          <Button as="a" variant="outline" sx={{ marginLeft: "auto" }}>Sign In With Slack</Button>
-        </NextLink>}
+        // @ts-ignore
+        <Button as="a" variant="outline" sx={{ marginLeft: "auto" }} href={`/api/authorize?next=${encodeURIComponent(router.asPath)}`}>
+          Sign in with Slack
+          <noscript>&nbsp;(requires JavaScript enabled on Slack)</noscript>
+        </Button>}
     </header>
     {children}
-  </Container>
+  </Container >
 }

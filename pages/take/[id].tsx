@@ -17,7 +17,12 @@ export default function TakePageID({ question }: Props) {
     const [lastQuestionNumber, setLastQuestionNumber] = useState<number | null>(null)
 
     useEffect(() => {
-        localStorage.setItem(`questions/${lastQuestionNumber}/answer`, answer);
+        const key = `questions/${lastQuestionNumber}/answer`
+        if (answer.trim().length > 0) {
+            localStorage.setItem(key, answer.trim())
+        } else {
+            localStorage.removeItem(key)
+        }
     }, [answer, lastQuestionNumber]);
 
     if (question.number !== lastQuestionNumber) {
@@ -25,9 +30,15 @@ export default function TakePageID({ question }: Props) {
         setLastQuestionNumber(question.number);
     }
 
-    return <Layout title={`Hack Club Census | Question ${question.number}`}>
+    const nojsUrl = `/take_nojs#answer${question.number}`
+
+    return <Layout slackUsername={null} title={`Hack Club Census | Question ${question.number}`}>
         {/* @ts-ignore */}
         <main sx={{ minHeight: "50vh" }}>
+            <noscript>
+                <Link href={nojsUrl}>This page requires JavaScript. Click here to go to a no-JS version!</Link>
+                <br />
+            </noscript>
             <NextLink href="/take" passHref>
                 <Link sx={{ marginTop: 3 }}>← Back to question home</Link>
             </NextLink>
