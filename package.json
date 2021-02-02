@@ -1,0 +1,29 @@
+{
+  "name": "with-typescript",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc"
+  },
+  "dependencies": {
+    "@hackclub/theme": "^0.3.1",
+    "@slack/web-api": "^6.0.0",
+    "airtable": "^0.10.1",
+    "cookies": "^0.8.0",
+    "next": "latest",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "theme-ui": "^0.3.5"
+  },
+  "devDependencies": {
+    "@types/cookies": "^0.7.6",
+    "@types/node": "^12.12.21",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "@types/theme-ui": "^0.3.7",
+    "typescript": "4.0"
+  },
+  "license": "MIT"
+}
