@@ -7,7 +7,6 @@ import {
 import { Button, ButtonGroup } from "@chakra-ui/button";
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { PropsWithChildren } from "react";
 
 export default function SectionLayout({
@@ -22,8 +21,6 @@ export default function SectionLayout({
   hasPrevious?: boolean;
   hasNext?: boolean;
 }>) {
-  const router = useRouter();
-
   return (
     <Box>
       <Alert>
@@ -38,7 +35,7 @@ export default function SectionLayout({
         w="80%"
         mx="auto"
         boxShadow="dark-lg"
-        mt={5}
+        my={5}
         p={5}
         bg="gray.700"
         borderRadius="lg"

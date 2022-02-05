@@ -3,12 +3,11 @@ import { FormEvent, useEffect, useState } from "react";
 export default function useField(
   name: string
 ): [string, (e: FormEvent | string) => void] {
-  const initialState =
-    typeof window === "undefined"
-      ? ""
-      : localStorage.getItem(`field:${name}`) || "";
+  const [value, setValue] = useState("");
 
-  const [value, setValue] = useState(initialState);
+  useEffect(() => {
+    setValue(localStorage.getItem(`field:${name}`));
+  }, [name]);
 
   useEffect(() => {
     localStorage.setItem(`field:${name}`, value);

@@ -1,7 +1,7 @@
 import { Checkbox, FormControl, FormLabel, Select } from "@chakra-ui/react";
 import React from "react";
-import useField from "../lib/field";
-import SectionLayout from "./common";
+import useField from "../../lib/field";
+import SectionLayout from "../../layouts/Section";
 
 export default function SectionTwo() {
   const editors = {
@@ -77,3 +77,5 @@ export default function SectionTwo() {
     </SectionLayout>
   );
 }
+
+export { getServerSideProps } from "../../lib/sectionProps";

@@ -1,4 +1,7 @@
+import { Props } from "../../lib/sectionProps";
+
 import {
+  Checkbox,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -12,12 +15,13 @@ import {
   NumberInputStepper,
   Select,
   Textarea,
+  VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import useField from "../lib/field";
-import SectionLayout from "./common";
+import useField from "../../lib/field";
+import SectionLayout from "../../layouts/Section";
 
-export default function SectionOne() {
+export default function SectionOne({ user }: Props) {
   const [name, setName] = useField("name");
   const [age, setAge] = useField("age");
   const [gender, setGender] = useField("gender");
@@ -27,7 +31,12 @@ export default function SectionOne() {
     <SectionLayout title="A little bit about yourself" index={1} hasNext>
       <FormControl mb={5}>
         <FormLabel>Your real name</FormLabel>
-        <Input placeholder="e.g. Zach Latta" value={name} onInput={setName} />
+        <Input
+          placeholder="e.g. Zach Latta"
+          value={name}
+          onInput={setName}
+          autoFocus
+        />
         <FormHelperText>Totally optional.</FormHelperText>
       </FormControl>
 
@@ -35,14 +44,14 @@ export default function SectionOne() {
         <FormLabel>Slack display name</FormLabel>
         <InputGroup>
           <InputLeftAddon>@</InputLeftAddon>
-          <Input value="Caleb" disabled readOnly />
+          <Input value={user.userName} disabled readOnly />
         </InputGroup>
         <FormHelperText>
           You can't change this; it's automatically set by your Slack profile.
         </FormHelperText>
       </FormControl>
 
-      <FormControl isRequired mb={5}>
+      <FormControl mb={5}>
         <FormLabel>Your age</FormLabel>
         <NumberInput value={age} onInput={setAge}>
           <NumberInputField />
@@ -55,7 +64,7 @@ export default function SectionOne() {
       </FormControl>
 
       <FormControl mb={5}>
-        <FormLabel>Your gender identity</FormLabel>
+        <FormLabel>Your gender</FormLabel>
         <Select placeholder="Select option" value={gender} onInput={setGender}>
           <option value="option1">Male</option>
           <option value="option2">Female</option>
@@ -73,6 +82,19 @@ export default function SectionOne() {
         />
         <FormHelperText>Friend? AMA? Cow?</FormHelperText>
       </FormControl>
+
+      <FormControl mb={5}>
+        <FormLabel>What are you?</FormLabel>
+        <VStack spacing={1} align="start">
+          <Checkbox>A Hack Clubber</Checkbox>
+          <Checkbox>A full-time staff member</Checkbox>
+          <Checkbox>A part-time HQ contributor</Checkbox>
+          <Checkbox>A post-high-school Hack Club alumni</Checkbox>
+        </VStack>
+        <FormHelperText>Check as many as you think apply.</FormHelperText>
+      </FormControl>
     </SectionLayout>
   );
 }
+
+export { getServerSideProps } from "../../lib/sectionProps";
