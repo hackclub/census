@@ -35,7 +35,7 @@ export default function SectionOne() {
         <FormLabel>Slack display name</FormLabel>
         <InputGroup>
           <InputLeftAddon>@</InputLeftAddon>
-          <Input value="Caleb" disabled />
+          <Input value="Caleb" disabled readOnly />
         </InputGroup>
         <FormHelperText>
           You can't change this; it's automatically set by your Slack profile.

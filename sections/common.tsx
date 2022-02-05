@@ -6,9 +6,9 @@ import {
 } from "@chakra-ui/alert";
 import { Button, ButtonGroup } from "@chakra-ui/button";
 import { Box, Heading, Text } from "@chakra-ui/layout";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { PropsWithChildren } from "react";
-import { FaScroll } from "react-icons/fa";
 
 export default function SectionLayout({
   index,
@@ -28,7 +28,7 @@ export default function SectionLayout({
     <Box>
       <Alert>
         <AlertIcon />
-        <AlertTitle>Pro Tip</AlertTitle>
+        <AlertTitle>Little tip</AlertTitle>
         <AlertDescription>
           You can safely close this page and come back; I have a good memory!
         </AlertDescription>
@@ -51,19 +51,16 @@ export default function SectionLayout({
         </Heading>
         <Box>{children}</Box>
         <ButtonGroup mt={5}>
-          <Button
-            onClick={() =>
-              router.push(hasPrevious ? `/section/${index - 1}` : "/")
-            }
-          >
-            Back
-          </Button>
-          <Button
-            disabled={!hasNext}
-            onClick={() => router.push(`/section/${index + 1}`)}
-          >
-            Next
-          </Button>
+          <Link href={hasPrevious ? `/section/${index - 1}` : "/"} passHref>
+            <Button as="a">Back</Button>
+          </Link>
+          {hasNext ? (
+            <Link href={`/section/${index + 1}`} passHref>
+              <Button as="a">Next</Button>
+            </Link>
+          ) : (
+            <Button disabled>Next</Button>
+          )}
         </ButtonGroup>
       </Box>
     </Box>

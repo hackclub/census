@@ -11,6 +11,7 @@ import {
 import { FaSlack } from "react-icons/fa";
 import React from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -25,14 +26,12 @@ export default function Home() {
           </AlertDescription>
         </Alert>
 
-        <Button
-          variant="solid"
-          onClick={() => router.push("/section/1")}
-          colorScheme="blue"
-        >
-          <FaSlack style={{ marginRight: "10px" }} />
-          Sign In With Slack
-        </Button>
+        <Link href="/section/1" passHref>
+          <Button variant="solid" colorScheme="blue" as="a">
+            <FaSlack style={{ marginRight: "10px" }} />
+            Sign In With Slack
+          </Button>
+        </Link>
       </Box>
     </Flex>
   );

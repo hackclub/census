@@ -1,21 +1,31 @@
 import React from "react";
-import { useRouter } from "next/router";
 import sections from "../../sections";
-import { Alert, AlertIcon } from "@chakra-ui/alert";
+import { GetServerSideProps } from "next";
 
-export default function Section() {
-  const router = useRouter();
-  const { index } = router.query;
+interface Props {
+  index: string;
+}
 
-  const CurrentSection = sections[index as string];
-
-  if (!CurrentSection) {
-    return (
-      <Alert status="error">
-        <AlertIcon /> Section not found.
-      </Alert>
-    );
-  }
+export default function Section({ index }: Props) {
+  const CurrentSection = sections[index];
 
   return <CurrentSection />;
 }
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const index = context.params["index"] as string;
+
+  if (sections[index] === undefined) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      index,
+    },
+  };
+};
