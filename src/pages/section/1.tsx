@@ -69,12 +69,12 @@ export default function SectionOne({ user }: Props) {
       </FormControl>
 
       <FormControl mb={5}>
-        <FormLabel>Your gender</FormLabel>
+        <FormLabel>Your preferred pronouns</FormLabel>
         <Select placeholder="Select option" value={gender} onInput={setGender}>
-          <option value="option1">Male</option>
-          <option value="option2">Female</option>
-          <option value="option3">Other</option>
-          <option value="option4">Prefer not to say</option>
+          <option value="he">He/him</option>
+          <option value="her">She/her</option>
+          <option value="they">They/them</option>
+          <option value="other">Other</option>
         </Select>
       </FormControl>
 

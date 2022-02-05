@@ -17,7 +17,7 @@ export default function SectionTwo() {
   const [framework, setFramework] = useField("framework", "");
 
   return (
-    <SectionLayout title="Your preferred tooling" index={2} hasPrevious>
+    <SectionLayout title="Languages and tools, oh my!" index={2} hasPrevious>
       <FormControl mb={5}>
         <FormLabel>Which editor do you generally code in?</FormLabel>
         <Select placeholder="Select option" value={editor} onInput={setEditor}>
