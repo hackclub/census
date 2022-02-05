@@ -22,7 +22,7 @@ import useField from "../../lib/field";
 import SectionLayout from "../../layouts/Section";
 
 export default function SectionOne({ user }: Props) {
-  const [name, setName] = useField("name", "");
+  const [name, setName] = useField("name", user.userName);
   const [age, setAge] = useField("age", "");
   const [gender, setGender] = useField("gender", "");
   const [howFind, setHowFind] = useField("howFind", "");
