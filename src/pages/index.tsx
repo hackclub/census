@@ -80,8 +80,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
       },
     };
   } catch (e) {
-    console.log(e);
-
     return {
       props: {
         user: null,
