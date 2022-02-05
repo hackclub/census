@@ -23,7 +23,7 @@ import SectionLayout from "../../layouts/Section";
 
 export default function SectionOne({ user }: Props) {
   const [name, setName] = useField("name", user.userName);
-  const [age, setAge] = useField("age", "");
+  const [age, setAge] = useField<number>("age", null);
   const [gender, setGender] = useField("gender", "");
   const [howFind, setHowFind] = useField("howFind", "");
 
@@ -58,7 +58,10 @@ export default function SectionOne({ user }: Props) {
 
       <FormControl mb={5}>
         <FormLabel>Your age</FormLabel>
-        <NumberInput value={age} onInput={setAge}>
+        <NumberInput
+          value={age === null ? "" : age}
+          onChange={(_, v) => setAge(isNaN(v) ? null : v)}
+        >
           <NumberInputField />
           <NumberInputStepper>
             <NumberIncrementStepper />

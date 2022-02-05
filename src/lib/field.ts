@@ -17,7 +17,7 @@ export default function useField<T>(
   return [
     value,
     (e) => {
-      if ((e as FormEvent).target) {
+      if (e !== null && (e as FormEvent).target) {
         setValue(
           ((e as FormEvent).target as HTMLInputElement).value as unknown as T
         );

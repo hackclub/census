@@ -23,7 +23,7 @@ export default function SectionLayout({
 }>) {
   return (
     <Box>
-      <Alert>
+      <Alert position="sticky" top={0} bg="blue.800">
         <AlertIcon />
         <AlertTitle>Little tip</AlertTitle>
         <AlertDescription>
@@ -33,6 +33,7 @@ export default function SectionLayout({
 
       <Box
         w="80%"
+        maxW="3xl"
         mx="auto"
         boxShadow="dark-lg"
         my={5}
