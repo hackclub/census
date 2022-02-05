@@ -1,25 +1,27 @@
 import { FormEvent, useEffect, useState } from "react";
 
-export default function useField(
-  name: string
-): [string, (e: FormEvent | string) => void] {
-  const [value, setValue] = useState("");
+export default function useField<T>(
+  name: string,
+  defaultValue: T = null
+): [T, (e: T | FormEvent) => void] {
+  const [value, setValue] = useState<T>(defaultValue);
 
   useEffect(() => {
-    setValue(localStorage.getItem(`field:${name}`));
-  }, [name]);
+    setValue(JSON.parse(localStorage.getItem(`field:${name}`)) || defaultValue);
+  }, [name, defaultValue]);
 
   useEffect(() => {
-    localStorage.setItem(`field:${name}`, value);
+    localStorage.setItem(`field:${name}`, JSON.stringify(value));
   }, [value, name]);
 
   return [
     value,
     (e) => {
-      if (typeof e == "string") {
-        setValue(e);
+      if ((e as FormEvent).target) {
+        //@ts-ignore
+        setValue(((e as FormEvent).target as HTMLInputElement).value);
       } else {
-        setValue((e.target as HTMLInputElement).value);
+        setValue(e as T);
       }
     },
   ];

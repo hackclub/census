@@ -22,10 +22,15 @@ import useField from "../../lib/field";
 import SectionLayout from "../../layouts/Section";
 
 export default function SectionOne({ user }: Props) {
-  const [name, setName] = useField("name");
-  const [age, setAge] = useField("age");
-  const [gender, setGender] = useField("gender");
-  const [howFind, setHowFind] = useField("howFind");
+  const [name, setName] = useField("name", "");
+  const [age, setAge] = useField("age", "");
+  const [gender, setGender] = useField("gender", "");
+  const [howFind, setHowFind] = useField("howFind", "");
+
+  const [hackClubber, setHackClubber] = useField("hackClubber", false);
+  const [hq, setHq] = useField("hq", false);
+  const [partTimeHq, setPartTimeHq] = useField("partTimeHq", false);
+  const [alumni, setAlumni] = useField("alumni", false);
 
   return (
     <SectionLayout title="A little bit about yourself" index={1} hasNext>
@@ -86,10 +91,27 @@ export default function SectionOne({ user }: Props) {
       <FormControl mb={5}>
         <FormLabel>What are you?</FormLabel>
         <VStack spacing={1} align="start">
-          <Checkbox>A Hack Clubber</Checkbox>
-          <Checkbox>A full-time staff member</Checkbox>
-          <Checkbox>A part-time HQ contributor</Checkbox>
-          <Checkbox>A post-high-school Hack Club alumni</Checkbox>
+          <Checkbox
+            isChecked={!!hackClubber}
+            onChange={(e) => setHackClubber(e.target.checked)}
+          >
+            A Hack Clubber
+          </Checkbox>
+          <Checkbox isChecked={!!hq} onChange={(e) => setHq(e.target.checked)}>
+            A full-time staff member
+          </Checkbox>
+          <Checkbox
+            isChecked={!!partTimeHq}
+            onChange={(e) => setPartTimeHq(e.target.checked)}
+          >
+            A part-time HQ contributor
+          </Checkbox>
+          <Checkbox
+            isChecked={!!alumni}
+            onChange={(e) => setAlumni(e.target.checked)}
+          >
+            A post-high-school Hack Club alumni
+          </Checkbox>
         </VStack>
         <FormHelperText>Check as many as you think apply.</FormHelperText>
       </FormControl>

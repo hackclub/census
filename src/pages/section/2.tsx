@@ -11,10 +11,10 @@ export default function SectionTwo() {
     vim: "Vim",
     atom: "Atom",
   };
-  const [editor, setEditor] = useField("editor");
-  const [usesVim, setUsesVim] = useField("usesVim");
-  const [language, setLanguage] = useField("language");
-  const [framework, setFramework] = useField("framework");
+  const [editor, setEditor] = useField("editor", "");
+  const [usesVim, setUsesVim] = useField("usesVim", false);
+  const [language, setLanguage] = useField("language", "");
+  const [framework, setFramework] = useField("framework", "");
 
   return (
     <SectionLayout title="Your preferred tooling" index={2} hasPrevious>
@@ -33,7 +33,7 @@ export default function SectionTwo() {
         <Checkbox
           mb={5}
           isChecked={!!usesVim}
-          onInput={(e) => setUsesVim((e.target as any).checked ? "" : "true")}
+          onChange={(e) => setUsesVim(e.target.checked)}
         >
           Do you make use of Vim keybindings in {editors[editor]}?
         </Checkbox>
