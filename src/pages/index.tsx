@@ -31,7 +31,7 @@ export default function Home({ user }: Props) {
 
           <ButtonGroup spacing={4}>
             <Link href="/logout" passHref>
-              <Button as="a">Sign out</Button>
+              <Button as="a">Log out</Button>
             </Link>
             <Link href="/section/1" passHref>
               <Button
