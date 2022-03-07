@@ -4,6 +4,7 @@ import { GetServerSidePropsContext } from "next";
 export interface User {
   userId: string;
   userName: string;
+  picture?: string;
 }
 
 export default async function auth(
@@ -18,5 +19,6 @@ export default async function auth(
   return {
     userId: payload.userId as string,
     userName: payload.userName as string,
+    picture: payload.picture as string,
   };
 }

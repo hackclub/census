@@ -1,11 +1,11 @@
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
   Box,
   Button,
   ButtonGroup,
   Flex,
+  Text,
+  Image,
+  Heading,
 } from "@chakra-ui/react";
 import { FaArrowRight, FaSlack } from "react-icons/fa";
 import Link from "next/link";
@@ -21,12 +21,28 @@ export default function Home({ user }: Props) {
     return (
       <Flex alignItems="center" justifyContent="center" height="100vh">
         <Box textAlign="center">
-          <Alert flexDirection="column" status="info" mb={5} px={10}>
-            <AlertTitle>Welcome to the Hack Club Census!</AlertTitle>
-            <AlertDescription>
-              You're signed in as {user.userName}.
-            </AlertDescription>
-          </Alert>
+          <Flex
+            mb={5}
+            p={5}
+            alignItems="center"
+            bg="blue.800"
+            borderRadius="lg"
+          >
+            {user.picture && (
+              <Image
+                boxSize={12}
+                borderRadius="lg"
+                src={user.picture}
+                alt={user.userName}
+                mr={3}
+              />
+            )}
+
+            <Flex direction="column" alignItems="start">
+              <Text>Signed in as</Text>
+              <Heading fontSize={30}>{user.userName}</Heading>
+            </Flex>
+          </Flex>
 
           <ButtonGroup spacing={4}>
             <Link href="/logout" passHref>
@@ -50,12 +66,17 @@ export default function Home({ user }: Props) {
     return (
       <Flex alignItems="center" justifyContent="center" height="100vh">
         <Box textAlign="center">
-          <Alert flexDirection="column" status="info" mb={5} px={10}>
-            <AlertTitle>Welcome to the Hack Club Census!</AlertTitle>
-            <AlertDescription>
-              To get started, please connect your Slack account.
-            </AlertDescription>
-          </Alert>
+          <Flex
+            mb={5}
+            p={5}
+            alignItems="center"
+            bg="blue.800"
+            borderRadius="lg"
+            direction="column"
+          >
+            <Text>Welcome to the Hack Club Census!</Text>
+            <Text>To get started, please connect your Slack account.</Text>
+          </Flex>
 
           <Link href="/login" passHref>
             <Button

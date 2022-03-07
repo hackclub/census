@@ -23,6 +23,7 @@ export default async function handler(
   const jwt = await new jose.SignJWT({
     userId: claims["https://slack.com/user_id"],
     userName: claims.name,
+    picture: claims.picture,
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
