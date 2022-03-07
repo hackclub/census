@@ -8,7 +8,8 @@ import { Button, ButtonGroup } from "@chakra-ui/button";
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import { CloseButton } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
+import { FaArrowRight } from "react-icons/fa";
 import useAlert from "../lib/alert";
 
 export default function SectionLayout({
@@ -23,7 +24,7 @@ export default function SectionLayout({
   hasPrevious?: boolean;
   hasNext?: boolean;
 }>) {
-  const [alertHidden, hideAlert] = useAlert(`memory`);
+  const [alertHidden, hideAlert] = useAlert("memory");
 
   return (
     <Box>
@@ -69,7 +70,11 @@ export default function SectionLayout({
               <Button as="a">Next</Button>
             </Link>
           ) : (
-            <Button disabled>Next</Button>
+            <Link href="/submit" passHref>
+              <Button as="a" colorScheme="blue" rightIcon={<FaArrowRight />}>
+                Review your answers
+              </Button>
+            </Link>
           )}
         </ButtonGroup>
       </Box>

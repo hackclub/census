@@ -17,7 +17,6 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
 import useField from "../../lib/field";
 import SectionLayout from "../../layouts/Section";
 

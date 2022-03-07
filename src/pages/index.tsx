@@ -8,7 +8,6 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FaArrowRight, FaSlack } from "react-icons/fa";
-import React from "react";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import auth, { User } from "../lib/auth";
