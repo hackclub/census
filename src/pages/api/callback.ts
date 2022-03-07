@@ -12,7 +12,6 @@ export default async function handler(
   const client = new issuer.Client({
     client_id: process.env.SLACK_CLIENT_ID,
     client_secret: process.env.SLACK_CLIENT_SECRET,
-    redirect_uris: ["https://localhost/api/callback"],
   });
 
   const tokenSet = await client.callback(process.env.SLACK_REDIRECT_URI, {

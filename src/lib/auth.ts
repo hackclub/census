@@ -1,5 +1,4 @@
 import * as jose from "jose";
-import cookie from "cookie";
 import { GetServerSidePropsContext } from "next";
 
 export interface User {
@@ -10,7 +9,7 @@ export interface User {
 export default async function auth(
   context: GetServerSidePropsContext
 ): Promise<User> {
-  const jwt = cookie.parse(context.req.headers.cookie)["census_auth"];
+  const jwt = context.req.cookies["census_auth"];
 
   const { payload } = await jose.jwtVerify(
     jwt,

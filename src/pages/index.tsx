@@ -4,6 +4,7 @@ import {
   AlertTitle,
   Box,
   Button,
+  ButtonGroup,
   Flex,
 } from "@chakra-ui/react";
 import { FaArrowRight, FaSlack } from "react-icons/fa";
@@ -28,16 +29,21 @@ export default function Home({ user }: Props) {
             </AlertDescription>
           </Alert>
 
-          <Link href="/section/1" passHref>
-            <Button
-              rightIcon={<FaArrowRight />}
-              variant="solid"
-              colorScheme="blue"
-              as="a"
-            >
-              Start
-            </Button>
-          </Link>
+          <ButtonGroup spacing={4}>
+            <Link href="/logout" passHref>
+              <Button as="a">Sign out</Button>
+            </Link>
+            <Link href="/section/1" passHref>
+              <Button
+                rightIcon={<FaArrowRight />}
+                variant="solid"
+                colorScheme="blue"
+                as="a"
+              >
+                Start
+              </Button>
+            </Link>
+          </ButtonGroup>
         </Box>
       </Flex>
     );
@@ -52,7 +58,7 @@ export default function Home({ user }: Props) {
             </AlertDescription>
           </Alert>
 
-          <Link href="/api/login" passHref>
+          <Link href="/login" passHref>
             <Button
               leftIcon={<FaSlack />}
               variant="solid"

@@ -11,6 +11,12 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      { source: "/login", destination: "/api/login" },
+      { source: "/logout", destination: "/api/logout" },
+    ];
+  },
   eslint: {
     dirs: ["src/"],
   },
