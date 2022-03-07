@@ -24,13 +24,13 @@ export default function Home({ user }: Props) {
           <Alert flexDirection="column" status="info" mb={5} px={10}>
             <AlertTitle>Welcome to the Hack Club Census!</AlertTitle>
             <AlertDescription>
-              You're logged in as {user.userName}.
+              You're signed in as {user.userName}.
             </AlertDescription>
           </Alert>
 
           <ButtonGroup spacing={4}>
             <Link href="/logout" passHref>
-              <Button as="a">Log out</Button>
+              <Button as="a">Sign out</Button>
             </Link>
             <Link href="/section/1" passHref>
               <Button
