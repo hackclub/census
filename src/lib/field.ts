@@ -7,7 +7,7 @@ export default function useField<T>(
   const [value, setValue] = useState<T>(defaultValue);
 
   useEffect(() => {
-    setValue(JSON.parse(localStorage.getItem(`field:${name}`)) || defaultValue);
+    setValue(JSON.parse(localStorage.getItem(`field:${name}`)) ?? defaultValue);
   }, [name, defaultValue]);
 
   useEffect(() => {
